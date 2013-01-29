@@ -1,0 +1,31 @@
+@import "variables.less";
+@import "mixins.less";
+div.chat-window {
+	position:absolute;
+	bottom:50px;
+	right:50px;
+	/*border:1px solid #c0c0c0;*/
+}
+div.chat-window .message {
+	/*.border-radius( 10px );*/
+	height:200px;
+	padding-left:5px;
+	width:200px;
+	background-color:#fff;
+	font-weight:bold;
+  	.BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: #aaa) {
+  		box-shadow: @arguments;
+  		-moz-box-shadow: @arguments;
+  		-webkit-box-shadow: @arguments;
+	}
+	.BoxShadow(2px, 1px, 15px);
+}
+div.chat-window .contact {
+	width:195px;
+	padding:5px;
+	height:20px;
+	background-color:#222222;
+	color:#fff;
+	font-weight:bold;
+}
+
