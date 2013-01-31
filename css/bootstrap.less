@@ -6,9 +6,27 @@ div.chat-window {
 	bottom: 20px;
 	right: 20px;
 
+	.contact {
+		position: relative;
+		cursor: move;
+		width: 195px;
+		height: 20px;
+		padding: 8px;
+		color: #fff;
+		background-color: #222222;
+		font-weight: bold;
+		.close {
+			position: absolute;
+			right: 5px;
+			bottom: 10px;
+			color: #FFF;
+			font-weight: normal;
+		}
+	}
+
 	.message {
 		height: 250px;
-		padding: 5px 8px;
+		padding: 8px 8px 5px 8px;
 		width: 195px;
 		background-color: #fff;
 	  	.BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: #000) {
@@ -21,26 +39,8 @@ div.chat-window {
 			font-weight: bold;
 			padding-right: 4px;
 		}
-	}
-
-	p {
-		line-height: 10px;
-	}
-
-	.contact {
-		position: relative;
-		width: 195px;
-		padding: 8px;
-		height: 20px;
-		background-color: #222222;
-		color: #fff;
-		font-weight: bold;
-		.close {
-			position: absolute;
-			right: 5px;
-			bottom: 10px;
-			color: #FFF;
-			font-weight: normal;
+		p {
+			line-height: 10px;
 		}
 	}
 
