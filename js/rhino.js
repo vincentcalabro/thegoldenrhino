@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$("body").ezBgResize({
 		img : "/img/global/rhino.jpeg",
-		opacity : 1,
+		opacity : .8,
         center  : true
 	});
 });
