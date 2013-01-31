@@ -5,11 +5,11 @@ div.chat-window {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
-
+	width: 195px;
+	
 	.contact {
 		position: relative;
 		cursor: move;
-		width: 195px;
 		height: 20px;
 		padding: 8px;
 		color: #fff;
@@ -25,9 +25,9 @@ div.chat-window {
 	}
 
 	.message {
+		position: relative;
+		padding: 8px 0px 5px 8px;
 		height: 250px;
-		padding: 8px 8px 5px 8px;
-		width: 195px;
 		background-color: #fff;
 	  	.BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: #000) {
 	  		box-shadow: @arguments;
@@ -42,11 +42,19 @@ div.chat-window {
 		p {
 			line-height: 10px;
 		}
+		.message-container {
+			height: 190px;
+			width: 100%;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
 	}
 
 	textarea.input-block-level {
-		margin-top: 165px;
+		position: absolute;
+		bottom: 0px;
 		border-color: #5298FA;
+		width:92%;
 	}
 
 }
