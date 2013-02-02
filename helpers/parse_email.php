@@ -1,21 +1,65 @@
-<?
+<?php
 
-/**
-*   This will eventually populate a database with chat logs
-*   This will come in handy: http://www.php.net/manual/en/function.imap-search.php
-*
-**/
-$imap = imap_open("{MYSITE.COM:143/notls}INBOX", "USERNAME", "PASSWORD")):
- 
+$server = "{imap.gmail.com:993/ssl}";
+$mailbox = "[Gmail]/All Mail";
+$user = "vinmann@gmail.com";
+$password = "";
+
+$imap = imap_open($server.$mailbox, $user, $password);
+
 $message_count = imap_num_msg($imap);
- 
-for ($i = 1; $i <= $message_count; ++$i):
+
+echo "Total message count: ".$message_count."<br />";
+
+function getMailboxNames() {
+    $mailboxes = imap_list($imap, $server, '*');
+    foreach($mailboxes as $mailbox) {
+        $shortname = str_replace($server, '', $mailbox);
+        echo "$shortname\n";
+    }
+}
+
+$needle = "chat with jesse goodenough";
+
+//for($m = 1; $m <= $message_count; $ms++) {
+for($m = 1; $m <= 100; $m++) {
+
+    $headers = imap_headerinfo($imap, $m);
+
+    /* this isn't working, comment out the if to just see subjects of first 100 emails */
+    //if(isset($headers->subject) && stristr(strtolower($headers->subject), $needle) == true) {
+    
+    if(isset($headers->subject)) { 
+        echo $headers->subject."<br />"; 
+    }
+
+}
+
+// $jesse_chats = imap_search($imap, 'SUBJECT Jesse', SE_UID);
+
+// echo imap_fetchbody($imap, 3442, "1.1");
+
+// var_dump($jesse_chats);
+
+// foreach($jesse_chats as $key => $value) {
+//     $body = imap_fetchbody($imap, $value, "1");
+//     echo "--------------<br />".$body."<br />";
+// }
+
+
        
-        $header = imap_header($imap, $i);
+       
+       //var_dump($body);
+        //$header = imap_header($imap, $i);
        
         //DEBUGGING ONLY
         //print_r($header);
        
+        
+        
+        /*foreach($jesse_chats as $key => $value) {
+
+        }
         $body = imap_fetchbody($imap, $i, "1.1");
        
         if ($body == ""):
@@ -45,8 +89,6 @@ for ($i = 1; $i <= $message_count; ++$i):
             imap_delete($imap, $i);
            
         endif;
- 
-    endfor;
-   
+ */
     imap_expunge($imap);
     imap_close($imap);
