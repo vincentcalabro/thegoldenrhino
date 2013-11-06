@@ -1,39 +1,47 @@
 <?php
 
 $server = "{imap.gmail.com:993/ssl}";
-$mailbox = "[Gmail]/All Mail";
-$user = "vinmann@gmail.com";
-$password = "";
+$mailbox = "[Gmail]/Chats";
+$needle = "chat with jesse goodenough";
+$user = "";             //email address
+$password = "";         //password
 
 $imap = imap_open($server.$mailbox, $user, $password);
 
-$message_count = imap_num_msg($imap);
+//$message_count = imap_num_msg($imap);
+//echo "Total message count: ".$message_count."<br />";
 
-echo "Total message count: ".$message_count."<br />";
-
-function getMailboxNames() {
+function getMailboxNames($imap, $server, $mailbox) {
     $mailboxes = imap_list($imap, $server, '*');
     foreach($mailboxes as $mailbox) {
         $shortname = str_replace($server, '', $mailbox);
         echo "$shortname\n";
     }
 }
+//getMailboxNames($imap, $server, $mailbox);
 
-$needle = "chat with jesse goodenough";
+$chats = imap_search($imap, 'ALL', SE_UID);
+
+ foreach($chats as $key => $value) {
+     //$structure = imap_fetchstructure($imap, $value);
+     //echo "--------------<br />".$structure."<br />";
+     $headers = imap_headerinfo($imap, $value);
+     if(isset($headers->subject) && stristr(strtolower($headers->subject), $needle) == true) {
+        $body = imap_fetchbody($imap, $value, "2");
+        echo "--------------<br />".$body."<br />";
+     }
+ }
 
 //for($m = 1; $m <= $message_count; $ms++) {
-for($m = 1; $m <= 100; $m++) {
-
-    $headers = imap_headerinfo($imap, $m);
-
-    /* this isn't working, comment out the if to just see subjects of first 100 emails */
-    //if(isset($headers->subject) && stristr(strtolower($headers->subject), $needle) == true) {
-    
-    if(isset($headers->subject)) { 
-        echo $headers->subject."<br />"; 
-    }
-
-}
+//for($m = 1; $m <= 10; $m++) {
+//    $headers = imap_headerinfo($imap, $m);
+//    if(isset($headers->subject) && stristr(strtolower($headers->subject), $needle) == true) {
+    //if(isset($headers->subject)) {
+        //var_dump($headers);
+        //echo $headers->subject."<br />";
+//    }
+//
+//}
 
 // $jesse_chats = imap_search($imap, 'SUBJECT Jesse', SE_UID);
 
@@ -46,17 +54,12 @@ for($m = 1; $m <= 100; $m++) {
 //     echo "--------------<br />".$body."<br />";
 // }
 
-
-       
-       
-       //var_dump($body);
+        //var_dump($body);
         //$header = imap_header($imap, $i);
        
         //DEBUGGING ONLY
         //print_r($header);
-       
-        
-        
+
         /*foreach($jesse_chats as $key => $value) {
 
         }
